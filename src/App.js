@@ -1,24 +1,39 @@
-import logo from './logo.svg';
+import imageURL from './img/easy.jpeg';
 import './App.css';
+import BOX from './box';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [isClicked, setIsClicked] = useState(false);
+  const [clickPosition, setClickPosition] = useState([0,0]);
+
+
+  useEffect(() => {
+    if (isClicked) {
+      console.log(true)
+      console.log(clickPosition)
+    } else {
+      console.log(false)
+    }
+  })
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log(e)
+    setIsClicked(!isClicked);
+    setClickPosition([e.pageX, e.pageY])
+  }
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div onClick={handleClick}>
+      <img src={ imageURL } />
     </div>
+    
+    <BOX x={clickPosition[0]} y={clickPosition[1]} />
+    </>
   );
 }
 
