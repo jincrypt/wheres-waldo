@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import CharacterDropdownFields from './CharacterDropdown';
 
 const Container = styled.div`
         position: absolute;
@@ -10,7 +11,9 @@ const Container = styled.div`
 
 function BOX(props) {
     return (
-        <Container x={props.x} y={props.y} >HELLO</Container>
+        <Container x={props.x} y={props.y}>
+            <CharacterDropdownFields />
+        </Container>
     )
 }
 
