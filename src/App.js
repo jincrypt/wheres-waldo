@@ -7,9 +7,13 @@ import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 
 function App() {
 
+// successfully pulls from DB, but what?
 async function getLevel(test2) {
-    const test = await getDocs(collection(test2, "level"));
-    console.log(test)
+    const test = await getDocs(collection(test2, "level/easy/characters"));
+    test.forEach((snap) => {
+      console.log(`${snap.id} ${JSON.stringify(snap.data())}`)
+    })
+
 }
 
   const [isClicked, setIsClicked] = useState(false);

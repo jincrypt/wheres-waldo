@@ -1,4 +1,6 @@
 # Where's Waldo
+12/11:
+Work on pulling from firebase databse
 
 12/10 Todo:
 Create dropdown box in BOX

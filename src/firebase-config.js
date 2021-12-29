@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, query, collection, getDocs } from 'firebase/firestore/lite';
+
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,5 +19,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+async function queryLevel() {
+  const q = query(collection(db, 'level/easy/characters'))
+
+  const snapshot = await getDocs(q);
+  snapshot.forEach((snap) => {
+    console.log(`${snap.id}  ${JSON.stringify(snap.data())}`)
+  })
+  
+}
+
+queryLevel();
 
 export default db
