@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 async function queryLevel() {
   const q = query(collection(db, 'level/easy/characters'))
@@ -31,5 +31,3 @@ async function queryLevel() {
 }
 
 queryLevel();
-
-export default db

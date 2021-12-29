@@ -2,18 +2,17 @@ import imageURL from './img/easy.jpg';
 import './App.css';
 import BOX from './box';
 import { useEffect, useState } from 'react';
-import db from "./firebase-config.js"
+import { db } from "./firebase-config.js"
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { GetCoordinates } from "./helper/ImageLocation";
 
 function App() {
-
 // successfully pulls from DB, but what?
 async function getLevel(test2) {
     const test = await getDocs(collection(test2, "level/easy/characters"));
     test.forEach((snap) => {
       console.log(`${snap.id} ${JSON.stringify(snap.data())}`)
     })
-
 }
 
   const [isClicked, setIsClicked] = useState(false);
@@ -23,7 +22,7 @@ async function getLevel(test2) {
   useEffect(() => {
     if (isClicked) {
       console.log(true)
-      console.log(clickPosition)
+      // console.log(clickPosition)
       console.log(getLevel(db));
     } else {
       console.log(false)
@@ -32,7 +31,8 @@ async function getLevel(test2) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(e);
+    // console.log(e);
+    console.log(GetCoordinates(e));
 
     // Logic: Open menu when clicked. If clicked elsewhere, close menu.
     if (menuOpened) {
@@ -49,7 +49,7 @@ async function getLevel(test2) {
   return (
     <>
     <div onClick={handleClick}>
-      <img src={ imageURL } style={{width: "80%"}} />
+      <img src={ imageURL } id="WaldoMap"/>
     </div>
     {menuOpened ? <BOX x={clickPosition[0]} y={clickPosition[1]} /> : null}
     </>
@@ -57,3 +57,4 @@ async function getLevel(test2) {
 }
 
 export default App;
+

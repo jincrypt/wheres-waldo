@@ -3,6 +3,8 @@ import WALDO from './img/characters/waldo.jpg';
 import WENDA from './img/characters/wenda.jpg';
 import WIZARD from './img/characters/wizard.jpg';
 
+import { db } from './firebase-config';
+
 const CharacterDropdownField = (props) => {
     return (
         <div>
