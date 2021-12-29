@@ -3,7 +3,7 @@ import './App.css';
 import BOX from './box';
 import { useEffect, useState } from 'react';
 import { db } from "./firebase-config.js"
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import {  collection, getDocs } from 'firebase/firestore/lite';
 import { GetCoordinates } from "./helper/ImageLocation";
 
 function App() {
@@ -18,12 +18,28 @@ async function getLevel(test2) {
   const [isClicked, setIsClicked] = useState(false);
   const [clickPosition, setClickPosition] = useState([0,0]);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [characters, setCharacters] = useState();
+
+// Run once initially
+useEffect(() => {
+      async function retrieveCharactersFromDatabase() {
+          let result = {};
+          let getCharacters = await getDocs(collection(db, "level/easy/characters"));
+          getCharacters.forEach(
+              (snap) => {
+                  if (snap.data().exist) result[snap.id.toUpperCase()] = true;                
+              })
+          console.log("Queried Database for Characters")
+          return setCharacters(result)
+      }
+      retrieveCharactersFromDatabase();
+    }, []);
 
   useEffect(() => {
     if (isClicked) {
       console.log(true)
       // console.log(clickPosition)
-      console.log(getLevel(db));
+      // console.log(getLevel(db));
     } else {
       console.log(false)
     }
@@ -51,7 +67,7 @@ async function getLevel(test2) {
     <div onClick={handleClick}>
       <img src={ imageURL } id="WaldoMap"/>
     </div>
-    {menuOpened ? <BOX x={clickPosition[0]} y={clickPosition[1]} /> : null}
+    {(menuOpened && characters) ? <BOX characters={characters} x={clickPosition[0]} y={clickPosition[1]} /> : null}
     </>
   );
 }

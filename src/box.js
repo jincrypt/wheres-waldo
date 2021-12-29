@@ -12,7 +12,7 @@ const Container = styled.div`
 function BOX(props) {
     return (
         <Container x={props.x} y={props.y}>
-            <CharacterDropdownFields /> 
+            <CharacterDropdownFields characters={props.characters} /> 
         </Container>
     )
 }
